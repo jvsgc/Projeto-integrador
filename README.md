@@ -1,151 +1,101 @@
-# 📘 HealthTrackIA – Documentação do Projeto
-
-## 1. Visão Geral do Projeto
-
-O **HealthTrackIA** é uma aplicação acadêmica criada para fornecer ao usuário, de forma simples e rápida, uma **dieta básica** e um **treino personalizado** com base nas informações coletadas por um chatbot com IA.
-
-A solução utiliza:
-
-- Inteligência Artificial (LLM Gemini)  
-- Front-end moderno em **React + Vite**  
-- Backend em **Python**  
-- Estrutura planejada para futura integração com banco de dados  
+# 🩺 HealthTrack AI  
+### Projeto Integrador — Curso de Análise e Desenvolvimento de Sistemas (ADS)  
+**Disciplina:** AED: Projeto Integrador - Desenvolvimento de Aplicação com CI/CD no GitLab  
+**Equipe:** Rodrigo Madeira Cervantes, João Vitor Sena  
 
 ---
 
-## 🎯 2. Objetivos do Sistema
-
-- Coletar dados do usuário de forma natural via chatbot LLM  
-- Gerar automaticamente uma **dieta** e um **treino básico** com base nos dados coletados  
-- Entregar uma interface rápida e intuitiva  
-- Possibilitar futura autenticação e armazenamento de perfis em banco de dados  
+## 1. Nome do Projeto  
+**HealthTrack AI — Sistema de recomendação de hábitos saudáveis personalizados**
 
 ---
 
-## 🧠 3. Funcionalidades Principais
+## 2. Problema a ser Resolvido  
+Muitas pessoas recebem recomendações genéricas sobre saúde (como alimentação, sono e exercícios) que não consideram suas características individuais — idade, peso, rotina, limitações físicas e objetivos.  
+Isso reduz a eficácia e a adesão.  
 
-### 3.1 Chatbot Inteligente
-
-- Desenvolvido em Python usando agente **Gemini**  
-- Coleta dados como:  
-  - Nome  
-  - Idade  
-  - Peso  
-  - Altura  
-  - Objetivo (perder peso, ganhar massa etc.)  
-- Gera automaticamente:  
-  - Plano de dieta simples  
-  - Treino básico adaptado ao objetivo  
-
-### 3.2 Interface Front-End
-
-- Construída com **React + Vite**  
-- Comunicação com backend via API  
-- Exibe:  
-  - Conversa com o chatbot  
-  - Resultado da dieta  
-  - Plano de treino  
-
-### 3.3 Backend e Arquitetura
-
-- Desenvolvido em **Python**  
-- Responsável por:  
-  - Operar o modelo Gemini  
-  - Tratar rotas da API  
-  - Gerar recomendações  
-  - Estrutura para integração futura com DB  
-
-### 3.4 Futura Integração com Banco de Dados
-
-Planejado para armazenar:
-
-- Perfis de usuários  
-- Histórico de chats  
-- Dietas e treinos preferidos  
+O **HealthTrack AI** busca oferecer recomendações **personalizadas e práticas**, com base nos dados do usuário e em padrões aprendidos por **modelos de Inteligência Artificial (IA)**.
 
 ---
 
-## 🏗️ 4. Arquitetura do Sistema
+## 3. Descrição da Aplicação  
+Aplicação **web em Python** onde o usuário cria um perfil com suas informações (idade, peso, altura, rotina, objetivos, etc.) e recebe:  
+- Plano diário ou semanal de **atividades físicas sugeridas**  
+- Recomendações de **sono e alimentação**  
+- **Sugestões de hábitos comportamentais** e alertas de acompanhamento  
 
-**Frontend (React + Vite)**  
-&nbsp;&nbsp;&nbsp;⬇ API REST (JSON)
-
-**Backend (Python)**
-- Agente Gemini (LLM)
-- Lógica de recomendação
-- Futuro banco de dados
-
-## 💬 5. Fluxo de Funcionamento
-
-1. Usuário acessa o front-end em React  
-2. Interface inicia conversa com o chatbot  
-3. Chatbot coleta informações do usuário  
-4. LLM processa e monta dieta + treino  
-5. Front-end exibe o resultado  
-6. (Futuro) Usuário pode salvar o perfil  
+O sistema inclui:  
+- Cadastro e autenticação de usuários  
+- Dashboard com histórico de progresso  
+- Exportação de plano e histórico (PDF/CSV)  
+- Módulo de IA que gera recomendações personalizadas  
 
 ---
 
-## 🛠️ 6. Tecnologias Utilizadas
-
-### **Frontend**
-- React  
-- Vite  
-- Axios / Fetch  
-- Tailwind CSS (opcional)
-
-### **Backend**
-- Python 3+  
-- Google Gemini (LLM)  
-- FastAPI ou Flask  
-
-### **Futuro**
-- PostgreSQL / MySQL / MongoDB  
-- Autenticação JWT  
+## 4. Tecnologias e Ferramentas  
+- **Backend:** FastAPI (Python)  
+- **Frontend:** React ou templates Jinja  
+- **Banco de Dados:** PostgreSQL / SQLite  
+- **IA / ML:** scikit-learn (classificação, regressão, K-NN)  
+- **Estruturas de Dados:** KD-Tree e Hash Tables  
+- **Segurança:** bcrypt, JWT, validação com Pydantic  
+- **CI/CD:** GitLab com estágios `build` e `test` automatizados  
+- **Testes:** pytest com cobertura mínima de 70%  
 
 ---
 
-## 📊 7. Apresentação do Projeto (Pitch)
+## 5. Aplicação dos Pilares Técnicos  
 
-### **Título:** HealthTrackIA – Seu Assistente Inteligente de Treino e Dieta
+**Estruturas de Dados:**  
+- KD-Tree para busca de perfis semelhantes  
+- Hash Tables para cache e indexação de usuários  
 
-### 1. Problema
-Muitas pessoas querem melhorar a saúde, mas não sabem por onde começar.
+**Inteligência Artificial:**  
+- Modelo híbrido: classificação/regressão + sistema de recomendação K-NN  
 
-### 2. Solução
-Um chatbot inteligente que coleta dados do usuário e gera treino + dieta automaticamente.
-
-### 3. Como Funciona
-- Converse com o chatbot  
-- Informe seus dados  
-- Receba dieta e treino personalizados  
-- Tudo em segundos  
-
-### 4. Tecnologias
-- IA com Gemini  
-- Front-end moderno  
-- Backend robusto em Python  
-- Futuro banco de dados  
-
-### 5. Benefícios
-- Rápido  
-- Fácil de usar  
-- Personalizado  
-- Baseado em IA  
-- Escalável  
-
-### 6. Público-Alvo
-- Universitários  
-- Iniciantes em treinos  
-- Pessoas buscando iniciar dieta  
-
-### 7. Futuro do Projeto
-- Histórico de evolução  
-- Recomendações avançadas  
-- Versão mobile  
+**Código Seguro:**  
+- Senhas criptografadas com bcrypt  
+- Validação de entrada rigorosa com Pydantic  
+- Proteções contra injeção SQL e checklist baseado no OWASP Top 10  
 
 ---
 
-## 📄 8. Considerações Finais
+## 6. CI/CD (GitLab)  
+O repositório conterá um pipeline CI/CD com os seguintes estágios:  
+- **Build:** instalação de dependências e verificação de linting  
+- **Test:** execução de testes com pytest (mínimo 70% de cobertura)  
+- **Deploy (opcional):** publicação automática no Render, Heroku ou AWS  
 
-O **HealthTrackIA** combina inteligência artificial, front-end moderno e arquitetura preparada para expansão. É ideal como solução funcional e como estudo acadêmico.
+---
+
+## 7. Cronograma (8 Semanas)  
+1. Formação da equipe e setup do repositório  
+2. Modelagem do banco e autenticação  
+3. Implementação do KD-Tree e pipeline de dados (ETL)  
+4. Treinamento inicial do modelo de IA  
+5. Integração backend + IA  
+6. Segurança e testes unitários  
+7. CI/CD e documentação do pipeline  
+8. Testes finais e apresentação  
+
+---
+
+## 8. Entregáveis  
+- Repositório GitLab com código e documentação  
+- Pipeline CI/CD funcional (`.gitlab-ci.yml`)  
+- Documentação técnica (README, instruções, relatório de segurança)  
+- Demonstração e apresentação final  
+
+---
+
+## 9. Critérios de Avaliação  
+- Complexidade técnica (KD-Tree + IA híbrida)  
+- Aplicação dos conceitos (ED, IA, Código Seguro e CI/CD)  
+- Qualidade do código e dos testes  
+- Qualidade da documentação e apresentação  
+
+---
+
+## 10. Conclusão  
+O **HealthTrack AI** é um projeto viável, tecnicamente sólido e totalmente alinhado aos pilares do curso.  
+Ele demonstra a aplicação integrada de **Estruturas de Dados, Inteligência Artificial, Código Seguro** e **CI/CD no GitLab**, resultando em um sistema moderno e escalável voltado para a melhoria da saúde e qualidade de vida dos usuários.
