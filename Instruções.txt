@@ -1,0 +1,24 @@
+Chatbot LLM: Agente de Saúde (Python + Gemini - Google GenAI SDK)
+
+O que este arquivo faz:
+- Interface de linha de comando simples para conversar com um agente de saúde.
+- Usa o modelo Gemini via Google GenAI SDK (`google-genai`).
+- Coleta um perfil básico do usuário (idade, peso, altura, atividade, preferências alimentares, alergias, objetivos).
+- Gera recomendações dietéticas e sugestões de melhoria de saúde com um prompt estruturado.
+- Inclui checagens básicas de segurança e recomendações para procurar um profissional de saúde quando necessário.
+
+Como usar:
+1) Instale dependências:
+   pip install -U google-genai tabulate
+
+2) Crie uma API key no Google AI Studio (https://aistudio.google.com) e defina a variável de ambiente:
+   export GEMINI_API_KEY="SUA_CHAVE_AQUI"   # Linux / macOS
+   setx GEMINI_API_KEY "SUA_CHAVE_AQUI"    # Windows (reabrir terminal depois)
+
+3) Rode:
+   python chatbot.py
+
+Observações importantes de segurança:
+- Este agente fornece recomendações gerais somente para fins informativos.
+- NÃO substitui avaliação médica, nutricional ou acompanhamento profissional.
+- Para condições médicas, alergias graves, gravidez, uso de medicamentos ou objetivos ambiciosos de perda de peso, consulte um médico ou nutricionista.
