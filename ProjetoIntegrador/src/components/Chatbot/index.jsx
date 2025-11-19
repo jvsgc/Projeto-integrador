@@ -63,15 +63,6 @@ const Chatbot = () => {
           <span>✈️</span>
         </button>
       </div>
-
-      <nav className="navigation-bar">
-        <button className="nav-icon active">🤖</button>
-        <button className="nav-icon">✉️</button>
-        <button className="nav-icon">💬</button>
-        <button className="nav-icon">📞</button>
-        <button className="nav-icon">💬</button>
-        <button className="nav-icon">⋮</button>
-      </nav>
     </div>
   );
 };
