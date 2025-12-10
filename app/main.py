@@ -1,16 +1,14 @@
-# app/main.py
 from fastapi import FastAPI
-from app.router_chatbot import router as chatbot_router
+from app.chat_routes import router as chat_router
 
-app = FastAPI(
-    title="API Projeto Integrador",
-    version="1.0.0"
-)
 
-# inclui rotas
-app.include_router(chatbot_router)
+
+app = FastAPI()
 
 
 @app.get("/")
 def home():
-    return {"status": "online", "mensagem": "API funcionando!"}
+    return {"message": "HealthTrackIA Backend (MongoDB) OK"}
+
+
+app.include_router(chat_router)

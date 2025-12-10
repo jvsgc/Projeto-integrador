@@ -113,6 +113,10 @@ def conversational_response(profile, user_message):
     return f"Obrigado pelas informações! Agora me diga: {missing_text}."
 
 
+def gerar_resposta(pergunta: str) -> str:
+    return f"Você disse: {pergunta}"
+
+
 def generate_plan(profile, history=None):
     """Chama o Gemini para gerar um plano. Retorna texto gerado."""
     # Monta instruções do usuário em formato estruturado
