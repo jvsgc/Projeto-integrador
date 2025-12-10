@@ -3,3 +3,4 @@ uvicorn
 google-genai
 tabulate
 python-dotenv
+pymongo

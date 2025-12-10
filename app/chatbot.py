@@ -113,6 +113,178 @@ def conversational_response(profile, user_message):
     return f"Obrigado pelas informações! Agora me diga: {missing_text}."
 
 
+def gerar_resposta(pergunta: str) -> str:
+    return f"Você disse: {pergunta}"
+
+
+def responder_pergunta_geral(mensagem: str):
+    """Detecta e responde perguntas gerais sobre o chatbot"""
+    texto = mensagem.lower()
+    
+    # Palavras-chave para perguntas sobre funcionamento
+    palavras_funcionamento = ["como funciona", "como trabalha", "como você trabalha", "como você funciona", 
+                              "como funciona o chatbot", "como você ajuda", "o que você faz"]
+    
+    # Palavras-chave para benefícios
+    palavras_beneficios = ["benefícios", "beneficio", "vantagens", "vantagem", "por que usar", 
+                           "porque usar", "para que serve", "o que oferece", "o que você oferece"]
+    
+    # Palavras-chave para o que é/características
+    palavras_sobre = ["o que é", "quem é você", "quem é voce", "o que você é", "você é", "voce é",
+                      "me fale sobre", "me conte sobre", "fale sobre", "conte sobre"]
+    
+    # Respostas sobre funcionamento
+    if any(palavra in texto for palavra in palavras_funcionamento):
+        respostas = [
+            "🤖 Olha, eu trabalho assim: você me conta seus dados (idade, altura, peso, nível de atividade e objetivo), e eu crio um plano personalizado de dieta e exercícios só para você! 💪\n\nÉ bem simples: você conversa comigo naturalmente, eu entendo suas informações e no final te entrego um plano completo! ✨",
+            "💡 Funciono assim: você me passa suas informações de saúde e objetivos, e eu gero um plano personalizado com dieta e exercícios! 🎯\n\nA gente conversa de forma natural, eu vou coletando seus dados e quando tiver tudo, crio seu plano completo! 🚀",
+            "🌟 É simples! Você me conta sobre você (idade, altura, peso, atividade física e objetivo), e eu preparo um plano de alimentação e exercícios personalizado! 📋\n\nConversamos de forma natural e no final você recebe tudo organizado! ✨"
+        ]
+        import random
+        return random.choice(respostas)
+    
+    # Respostas sobre benefícios
+    if any(palavra in texto for palavra in palavras_beneficios):
+        respostas = [
+            "🎯 Os benefícios são muitos! Comigo você:\n\n✅ Recebe um plano personalizado só seu\n✅ Tem dieta e exercícios adaptados ao seu objetivo\n✅ Economiza tempo (não precisa pesquisar tudo sozinho)\n✅ Tem orientações práticas e fáceis de seguir\n✅ Pode ajustar conforme sua rotina\n\nBasicamente, eu simplifico sua jornada de saúde! 💪✨",
+            "💪 Os principais benefícios:\n\n🌟 Plano 100% personalizado para você\n🍎 Sugestões de dieta práticas e realistas\n🏋️ Exercícios adaptados ao seu nível\n⏰ Economia de tempo e pesquisa\n📱 Acesso fácil e rápido\n🎯 Foco no seu objetivo específico\n\nResumindo: facilidade + personalização = resultados melhores! 🚀",
+            "✨ Vantagens de usar o chatbot:\n\n🎯 Personalização total (plano só seu)\n🍽️ Dieta adaptada ao seu dia a dia\n💪 Treino adequado ao seu nível\n📊 Tudo organizado e fácil de seguir\n⚡ Respostas rápidas e práticas\n🔄 Pode ajustar quando quiser\n\nÉ como ter um personal trainer e nutricionista sempre disponível! 🌟"
+        ]
+        import random
+        return random.choice(respostas)
+    
+    # Respostas sobre o que é
+    if any(palavra in texto for palavra in palavras_sobre):
+        respostas = [
+            "👋 Olá! Eu sou o assistente de saúde da HealthTrack IA! 🤖\n\nMeu trabalho é ajudar você a criar um plano personalizado de dieta e exercícios baseado nas suas informações e objetivos! 💪\n\nSou como um personal trainer e nutricionista digital - sempre aqui para te ajudar! ✨",
+            "🌟 Eu sou o chatbot da HealthTrack IA! 🚀\n\nSou especializado em criar planos personalizados de saúde: dieta + exercícios adaptados especialmente para você! 🎯\n\nPense em mim como seu assistente de saúde 24/7, sempre pronto para ajudar! 💪✨",
+            "💡 Eu sou o assistente inteligente da HealthTrack IA! 🤖\n\nMinha missão é te ajudar a alcançar seus objetivos de saúde criando um plano completo e personalizado! 📋\n\nSou focado em tornar sua jornada de saúde mais simples e eficiente! 🌟"
+        ]
+        import random
+        return random.choice(respostas)
+    
+    return None
+
+
+def gerar_resposta_humanizada(mensagem_usuario: str, profile: dict, dados_coletados: list = None):
+    """Gera uma resposta humanizada - versão simplificada e focada."""
+    
+    faltando = []
+    # Nome sempre primeiro
+    if not profile.get("name"):
+        faltando.append("seu nome")
+    if not profile.get("age"):
+        faltando.append("sua idade")
+    if not profile.get("height_cm"):
+        faltando.append("sua altura (em cm ou metros)")
+    if not profile.get("weight_kg"):
+        faltando.append("seu peso (em kg)")
+    if not profile.get("activity_level"):
+        faltando.append("seu nível de atividade física (sedentário, leve, moderado ou intenso)")
+    if not profile.get("goal"):
+        faltando.append("seu objetivo (ex: perder peso, ganhar massa, manter o peso)")
+
+    # Respostas pré-definidas mais variadas e humanizadas (com emojis)
+    respostas_reconhecimento = [
+        "Ótimo! ✅ Anotei sua {dado}.",
+        "Perfeito! ✨ Já tenho sua {dado} aqui.",
+        "Entendido! 📝 Sua {dado} está registrada.",
+        "Show! 🎯 Anotei sua {dado}.",
+        "Perfeito! 💪 Registrei sua {dado}.",
+    ]
+    
+    respostas_multiplas = [
+        "Perfeito! ✨ Anotei: {dados}.",
+        "Ótimo! ✅ Já tenho: {dados}.",
+        "Show! 🎯 Registrei: {dados}.",
+        "Excelente! 💪 Anotei: {dados}.",
+    ]
+
+    # Se coletou algo nesta mensagem, reconhece de forma variada
+    reconhecimento = ""
+    nome_usuario = profile.get("name", "")
+    tratamento = f", {nome_usuario}" if nome_usuario else ""
+    
+    if dados_coletados:
+        import random
+        if len(dados_coletados) == 1:
+            template = random.choice(respostas_reconhecimento)
+            reconhecimento = template.format(dado=dados_coletados[0])
+        else:
+            template = random.choice(respostas_multiplas)
+            dados_str = ', '.join(dados_coletados[:-1]) + f' e {dados_coletados[-1]}'
+            reconhecimento = template.format(dados=dados_str)
+
+    # Fallback: respostas pré-definidas variadas e humanizadas (simplificado)
+    import random
+    
+    if dados_coletados:
+        if len(faltando) == 0:
+            finalizacoes = [
+                "🎉 Perfeito! Agora tenho todas as informações. Vou criar seu plano personalizado! ⏳",
+                "✨ Excelente! Com essas informações vou montar um plano perfeito para você! 💪",
+                "🚀 Ótimo! Estou preparando seu plano personalizado agora mesmo! 📋",
+                "🎯 Perfeito! Tenho tudo que preciso. Criando seu plano agora! ⚡",
+            ]
+            return random.choice(finalizacoes)
+        elif len(faltando) == 1:
+            perguntas = [
+                f"{reconhecimento} Só falta me contar {faltando[0]}. 😊",
+                f"{reconhecimento} Agora me diga {faltando[0]}. 💬",
+                f"{reconhecimento} Falta só {faltando[0]}. ✨",
+                f"{reconhecimento} Me conte {faltando[0]}. 📝",
+            ]
+            return random.choice(perguntas)
+        elif len(faltando) == 2:
+            perguntas = [
+                f"{reconhecimento} Ainda preciso saber {faltando[0]} e {faltando[1]}. 😊",
+                f"{reconhecimento} Me conte também {faltando[0]} e {faltando[1]}. 💬",
+                f"{reconhecimento} Falta {faltando[0]} e {faltando[1]}. ✨",
+                f"{reconhecimento} Agora me diga {faltando[0]} e {faltando[1]}. 📝",
+            ]
+            return random.choice(perguntas)
+        else:
+            return f"{reconhecimento} Me conte também {faltando[0]} e {faltando[1]}. 😊"
+    else:
+        # Primeira mensagem - sempre começa pelo nome
+        if not profile.get("name"):
+            saudacoes = [
+                f"👋 Olá{tratamento}! Prazer em conhecê-lo! 😊\n\nPara começar, qual é o seu nome?",
+                f"🌟 Oi{tratamento}! Que bom ter você aqui! ✨\n\nMe diga seu nome para começarmos:",
+                f"👋 Olá{tratamento}! Vamos criar seu plano personalizado! 💪\n\nPrimeiro, qual é o seu nome?",
+            ]
+            return random.choice(saudacoes)
+        elif len(faltando) == 1:
+            saudacoes = [
+                f"👋 Olá{tratamento}! Para criar seu plano personalizado, preciso saber {faltando[0]}. 💪",
+                f"😊 Oi{tratamento}! Me conte {faltando[0]} para continuarmos. ✨",
+                f"👋 Olá{tratamento}! Agora preciso saber {faltando[0]}. 🎯",
+            ]
+            return random.choice(saudacoes)
+        elif len(faltando) == 2:
+            saudacoes = [
+                f"👋 Olá{tratamento}! Me conte {faltando[0]} e {faltando[1]}. 😊",
+                f"🌟 Oi{tratamento}! Preciso saber {faltando[0]} e {faltando[1]}. ✨",
+                f"👋 Olá{tratamento}! Me diga {faltando[0]} e {faltando[1]}. 💪",
+            ]
+            return random.choice(saudacoes)
+        elif len(faltando) >= 3:
+            # Pede apenas 2 por vez
+            saudacoes = [
+                f"👋 Olá{tratamento}! Para continuar, me conte {faltando[0]} e {faltando[1]}. 😊",
+                f"🌟 Oi{tratamento}! Vamos continuar? Me diga {faltando[0]} e {faltando[1]}. ✨",
+                f"👋 Olá{tratamento}! Agora preciso saber {faltando[0]} e {faltando[1]}. 💪",
+            ]
+            return random.choice(saudacoes)
+        else:
+            saudacoes = [
+                f"👋 Olá{tratamento}! Como posso ajudar você hoje? 😊",
+                f"🌟 Oi{tratamento}! Em que posso ajudar? ✨",
+                f"👋 Olá{tratamento}! Estou aqui para ajudar você! 💪",
+            ]
+            return random.choice(saudacoes)
+
+
 def generate_plan(profile, history=None):
     """Chama o Gemini para gerar um plano. Retorna texto gerado."""
     # Monta instruções do usuário em formato estruturado

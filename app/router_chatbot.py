@@ -81,9 +81,54 @@ def conversar(msg: dict):
 
 @router.post("/autonomo")
 def chat_autonomo(payload: dict):
-    mensagem = payload.get("mensagem", "")
-    estado = payload.get("estado", {})
+    try:
+        mensagem = payload.get("mensagem", "")
+        # Aceita tanto "estado" quanto "profile" para compatibilidade
+        estado = payload.get("estado", payload.get("profile", {}))
+        user_id = payload.get("user_id", "anonymous")
+        conversation_id = payload.get("conversation_id", None)
 
-    resposta = conversar_autonomo(mensagem, estado)
+        # Gera resposta primeiro (antes de salvar no MongoDB)
+        resposta = conversar_autonomo(mensagem, estado)
 
-    return resposta
+        # Integração com MongoDB (silenciosa - não quebra se falhar)
+        from app.chat_repository import create_conversation, save_message
+        from app.database import is_mongodb_available
+        
+        # Só tenta salvar se MongoDB estiver disponível
+        if is_mongodb_available():
+            try:
+                # Cria ou usa conversation_id existente
+                if conversation_id is None:
+                    conversation_id = create_conversation(user_id)
+                
+                # Salva mensagem do usuário
+                save_message(conversation_id, "user", mensagem)
+
+                # Salva resposta do bot
+                resposta_texto = resposta.get("resposta", "")
+                save_message(conversation_id, "assistant", resposta_texto)
+
+                # Adiciona conversation_id na resposta
+                resposta["conversation_id"] = conversation_id
+            except Exception:
+                # Silenciosamente ignora erros do MongoDB
+                pass
+        else:
+            # Se MongoDB não estiver disponível, gera ID temporário
+            if conversation_id is None:
+                import uuid
+                conversation_id = str(uuid.uuid4())
+            resposta["conversation_id"] = conversation_id
+
+        return resposta
+    except Exception as e:
+        import traceback
+        error_detail = traceback.format_exc()
+        print(f"❌ Erro em chat_autonomo: {e}")
+        print(error_detail)
+        return {
+            "status": "erro",
+            "resposta": f"Erro ao processar mensagem: {str(e)}",
+            "error_detail": error_detail if "development" in str(e).lower() else None
+        }
